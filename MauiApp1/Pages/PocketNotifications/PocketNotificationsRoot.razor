@@ -1,0 +1,62 @@
+﻿@page "/pocketNotifications"
+<h3>Pocket Notifications</h3>
+@if (showForm)
+{
+
+    <PocketNotificationsForm pocketNotification="Source" SystemFeatureType="@SystemFeatureType" OnCancel="OnCancel" OnValidSubmit="OnValidSubmit">
+
+    </PocketNotificationsForm>
+
+}
+
+<div class="card-body m-0">
+    <div class="col-md-12 row">
+        <div class="mb-3">
+            <a class="btn btn-primary" @onclick='()=>ShowForm(new PocketNotification(),"Add")'><i class="fa fa-plus"></i> New</a>
+        </div>
+    </div>
+    <table class="table table-danger table-striped">
+        <thead>
+            <tr>
+
+                <th scope="col">#</th>
+                <th scope="col">Send Notification</th>
+                <th scope="col">Operations</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (pocketNotifications == null)
+            {
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            }
+            else
+            {
+
+                @foreach (var pocketNotification in pocketNotifications)
+                {
+                    <tr>
+                        <td>@(pocketNotifications.IndexOf(pocketNotification) + 1)</td>
+                        <td>@pocketNotification.IsSendNotificationEnable</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <a href="javascript:void(0);" class="btn btn-secondary" @onclick='()=>ShowForm(pocketNotification,"Edit")'><i class="bi bi-pencil-square">Update</i></a>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href="javascript:void(0);" class="btn btn-info" @onclick='()=>ShowForm(pocketNotification,"Details")'><i class="fa-sharp fa-solid fa-circle-info">Details</i></a>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href="javascript:void(0);" class="btn btn-danger" @onclick='()=>ShowForm(pocketNotification,"Delete")'><i class="fa-solid fa-trash">Delete</i></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

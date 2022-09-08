@@ -1,0 +1,31 @@
+﻿
+<div class="modal fade show" style="display:flex; background-color: rgba(10,10,10,.65);" aria-modal="true" role="dialog">
+    <EditForm Model="pocketNotification" OnValidSubmit="@OnSubmitAsync">
+        <div class="form-group " style=" background-color:azure">
+            <div class="modal-header">
+
+                <div class="modal-title">
+                    <h3>@SystemFeatureType PocketNotification</h3>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-6">
+                    <Label For="@pocketNotification.TheDaysSinceThePocketIsCreated">TheDaysSinceThePocketIsCreated</Label>
+                    <InputNumber @bind-Value="@pocketNotification.TheDaysSinceThePocketIsCreated" disabled=@((SystemFeatureType=="Delete" || SystemFeatureType=="Details")) />
+                </div>
+                <div class="col-md-6">
+                    <Label For="@pocketNotification.IsSendNotificationEnable">IsSendNotificationEnable</Label>
+                    <InputCheckbox @bind-Value="@pocketNotification.IsSendNotificationEnable" disabled=@((SystemFeatureType=="Delete" || SystemFeatureType=="Details")) />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                @if (SystemFeatureType != "Details")
+                {
+                    <button type="submit" class="btn btn-primary">@SystemFeatureType</button>
+                }
+                <button type="button" @onclick="@(async(e)=>await OnCancel.InvokeAsync())" class="btn btn-danger">Cancle</button>
+            </div>
+        </div>
+    </EditForm>
+</div>
